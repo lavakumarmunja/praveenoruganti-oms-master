@@ -1,4 +1,4 @@
------------------------- ORDER MANAGEMENT SYSTEM---------------------------------
+------------------------ ORDER MANAGEMENT SYSTEM SpringBoot Application---------------------------------
 
 1. Implement the core services Customer and Item
 2. Implement the composite service sales order
