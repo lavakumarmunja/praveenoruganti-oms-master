@@ -1,0 +1,25 @@
+server:
+  port: 6072
+
+
+spring:
+ application:
+   name: ItemService
+ jpa:
+  database: MYSQL
+  show-sql: true
+  generate-ddl: false
+  
+ datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://root:password@localhost:3306/omsitemdb?reconnect=true
+    username: root
+    password: password
+    hikari:
+      connectionTimeout : 30000
+      idleTimeout : 600000
+      maxLifetime : 1800000
+      maximumPoolSize : 5
+         
+   
