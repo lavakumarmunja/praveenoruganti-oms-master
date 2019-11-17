@@ -7,6 +7,11 @@ and insert into the local customer table
 
 Table-Customer_SOS(cust_id,cust_first_name,cust_last_name,cust_email)
 
+omssalesorderdb
+Hibernate: create table customer_sos (cust_id bigint not null, cust_creation_date varchar(20) not null, email varchar(50) not null, cust_first_name varchar(50) not null, cust_last_name varchar(50) not null, primary key (cust_id)) engine=MyISAM
+Hibernate: create table hibernate_sequence (next_val bigint) engine=MyISAM
+Hibernate: insert into hibernate_sequence values ( 1 )
+
 
 2. Create Order- create an order and return an order id
 http://localhost:6071/salesorderservice/order
