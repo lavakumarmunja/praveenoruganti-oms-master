@@ -36,5 +36,12 @@ spring:
      customerCreatedChannel:
        destination: CustomerCreatedExchange
        group: CustomerCreatedMQ
+
+management:
+  endpoints:
+  exposure:
+    web:
+     include: '*'
+
          
    

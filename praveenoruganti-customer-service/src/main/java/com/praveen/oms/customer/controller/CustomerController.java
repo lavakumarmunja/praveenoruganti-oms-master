@@ -46,7 +46,7 @@ public class CustomerController {
 	@Autowired
 	CustomerCreatedSource customerCreatedSource;
 
-	@GetMapping("/customer")
+	@GetMapping("/customers")
 	@ApiOperation(value = "Gets all the Customers")
 	@ApiResponses(value = { @ApiResponse(code = 404, message = "Customer not found"),
 			@ApiResponse(code = 200, message = "OK") })
@@ -59,7 +59,7 @@ public class CustomerController {
 
 	}
 
-	@PostMapping(value = "/customer", consumes = "application/json", produces = "application/json")
+	@PostMapping(value = "/customers", consumes = "application/json", produces = "application/json")
 	@ApiOperation(value = "Creates new customer")
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Customer Created Successfully"),
 			@ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "BAD REQUEST") })
