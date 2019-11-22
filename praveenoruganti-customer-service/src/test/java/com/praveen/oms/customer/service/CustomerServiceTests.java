@@ -1,4 +1,4 @@
-package com.praveen.oms.customer.controller;
+package com.praveen.oms.customer.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
