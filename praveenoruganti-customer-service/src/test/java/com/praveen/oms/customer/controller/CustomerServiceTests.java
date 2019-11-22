@@ -21,10 +21,10 @@ import com.praveen.oms.customer.service.CustomerServiceImpl;
 public class CustomerServiceTests {
 
 	@InjectMocks
-	CustomerServiceImpl customerService;
+	CustomerServiceImpl customerService; // the service you want to test
 
 	@Mock
-	CustomerRepository customerRepository;	
+	CustomerRepository customerRepository;	// the service dependencies
 	
 	@Before
 	public void init() {
