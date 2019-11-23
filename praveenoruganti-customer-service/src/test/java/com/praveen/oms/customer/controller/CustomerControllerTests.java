@@ -1,6 +1,5 @@
 package com.praveen.oms.customer.controller;
 
-import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -59,7 +58,7 @@ public class CustomerControllerTests {
 
 		when(customerService.getCustomers()).thenReturn(listOfExpectedCustomers);
 		this.mockMvc.perform(get("/customerservice/customers")).andExpect(status().isOk())
-				.andExpect(jsonPath("$[0].firstname", is(custOne.getFirstname())));
+				.andExpect(jsonPath("$[0].firstname").value(custOne.getFirstname()));
 
 	}
 
@@ -74,7 +73,7 @@ public class CustomerControllerTests {
 
 		mockMvc.perform(post("/customerservice/customers").accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content(asJsonString(customerRequest)))
-				.andExpect(status().isCreated()).andExpect(jsonPath("$.firstname", is(customerRequest.getFirstname())));
+				.andExpect(status().isCreated()).andExpect(jsonPath("$.firstname").value(customerRequest.getFirstname()));
 
 		verify(customerService, times(1)).createCustomer(customerRequest);
 		verifyNoMoreInteractions(customerService);
