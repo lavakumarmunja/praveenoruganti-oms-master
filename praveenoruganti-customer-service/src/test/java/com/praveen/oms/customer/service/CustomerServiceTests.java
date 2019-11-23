@@ -24,8 +24,8 @@ public class CustomerServiceTests {
 	CustomerServiceImpl customerService; // the service you want to test
 
 	@Mock
-	CustomerRepository customerRepository;	// the service dependencies
-	
+	CustomerRepository customerRepository; // the service dependencies
+
 	@Before
 	public void init() {
 		MockitoAnnotations.initMocks(this);
@@ -34,23 +34,24 @@ public class CustomerServiceTests {
 	@Test
 	public void getCustomersTest() {
 		List<Customer> listOfExpectedCustomers = new ArrayList<Customer>();
-		Customer custOne = new Customer(1L, "Praveen", "Oruganti", "praveenoruganti@gmail.com", "20/11/2019");
-		Customer custTwo = new Customer(2L, "Kiran", "Badugu", "kiranbadugu@yahoo.com", "21/11/2019");
-		Customer custThree = new Customer(3L, "Praneeth", "Vishnubhotla", "praneethv@gmail.com", "22/11/2019");
+		Customer custOne = Customer.builder().firstname("Praveen").lastname("Oruganti")
+				.email("praveenoruganti@gmail.com").creationdate("20/11/2019").build();
+		Customer custTwo = Customer.builder().firstname("Kiran").lastname("Oruganti").email("kiranbadugu@yahoo.com")
+				.creationdate("21/11/2019").build();
+		Customer custThree = Customer.builder().firstname("Praneeth").lastname("Vishnubhotla")
+				.email("praneethv@gmail.com").creationdate("22/11/2019").build();
 
 		listOfExpectedCustomers.add(custOne);
 		listOfExpectedCustomers.add(custTwo);
 		listOfExpectedCustomers.add(custThree);
-		
 
-		doReturn(listOfExpectedCustomers).when(customerRepository).findAll();  
+		doReturn(listOfExpectedCustomers).when(customerRepository).findAll();
 
 		// when
 		List<Customer> listOfActualCustomers = customerService.getCustomers();
 
 		// then
-		assertThat(listOfActualCustomers).isEqualTo(listOfExpectedCustomers);  
-		
-		
+		assertThat(listOfActualCustomers).isEqualTo(listOfExpectedCustomers);
+
 	}
 }

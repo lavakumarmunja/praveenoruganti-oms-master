@@ -1,0 +1,24 @@
+spring:
+ profile:
+  active: test
+ application:
+   name: CustomerService
+ jpa:
+  database: h2
+  show-sql: true
+  generate-ddl: false
+  
+ datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:omscustomertestdb;INIT=CREATE SCHEMA IF NOT EXISTS dbo\\;CREATE SCHEMA IF NOT EXISTS definitions;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false;
+    username: 
+    password: 
+    hikari:
+      connectionTimeout : 30000
+      idleTimeout : 600000
+      maxLifetime : 1800000
+      maximumPoolSize : 5
+
+         
+   
