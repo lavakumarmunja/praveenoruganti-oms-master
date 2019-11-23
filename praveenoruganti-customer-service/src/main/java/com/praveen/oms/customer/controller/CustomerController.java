@@ -82,7 +82,9 @@ public class CustomerController {
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		} else {
 			Customer customer = customerService.createCustomer(customerRequest);
-			customerCreatedSource.customerCreated().send(MessageBuilder.withPayload(customer).build());
+			if(null!=customerCreatedSource) {
+			   customerCreatedSource.customerCreated().send(MessageBuilder.withPayload(customer).build());
+			}
 			return new ResponseEntity<Customer>(customer, HttpStatus.CREATED);
 		}
 	}

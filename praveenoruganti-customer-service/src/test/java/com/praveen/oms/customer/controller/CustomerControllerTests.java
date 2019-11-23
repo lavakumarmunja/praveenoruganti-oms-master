@@ -1,8 +1,12 @@
 package com.praveen.oms.customer.controller;
 
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -14,18 +18,18 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.praveen.oms.customer.controller.CustomerController;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.praveen.oms.customer.model.Customer;
+import com.praveen.oms.customer.request.CustomerRequest;
 import com.praveen.oms.customer.service.CustomerServiceImpl;
 
 @SpringBootTest
 public class CustomerControllerTests {
-	@Autowired
 	private MockMvc mockMvc;
 
 	@Mock
@@ -57,6 +61,34 @@ public class CustomerControllerTests {
 		this.mockMvc.perform(get("/customerservice/customers")).andExpect(status().isOk())
 				.andExpect(jsonPath("$[0].firstname", is(custOne.getFirstname())));
 
+	}
+
+	@Test
+	public void test_createCustomer_success() throws Exception {
+		CustomerRequest customerRequest = CustomerRequest.builder().firstname("Praveen").lastname("Oruganti")
+				.email("praveenoruganti@gmail.com").creationdate("20/11/2019").build();
+		Customer customer = Customer.builder().firstname("Praveen").lastname("Oruganti")
+				.email("praveenoruganti@gmail.com").creationdate("20/11/2019").build();
+
+		when(customerService.createCustomer(customerRequest)).thenReturn(customer);
+
+		mockMvc.perform(post("/customerservice/customers").accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON).content(asJsonString(customerRequest)))
+				.andExpect(status().isCreated()).andExpect(jsonPath("$.firstname", is(customerRequest.getFirstname())));
+
+		verify(customerService, times(1)).createCustomer(customerRequest);
+		verifyNoMoreInteractions(customerService);
+	}
+
+	/*
+	 * converts a Java object into JSON representation
+	 */
+	public static String asJsonString(final Object obj) {
+		try {
+			return new ObjectMapper().writeValueAsString(obj);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }

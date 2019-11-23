@@ -7,10 +7,12 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @ApiModel(description = "This request is to create a customer")
 @Data
 @NoArgsConstructor
+@SuperBuilder
 public class CustomerRequest{
 
 	@ApiModelProperty(notes = "firstname should have atleast 2 characters", name="firstname",value = "Praveen", required = true)
