@@ -8,14 +8,15 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.praveen.oms.customer.model.Customer;
 import com.praveen.oms.customer.repository.CustomerRepository;
-import com.praveen.oms.customer.service.CustomerServiceImpl;
 
 @SpringBootTest
 public class CustomerServiceTests {
