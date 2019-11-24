@@ -14,7 +14,7 @@ Hibernate: insert into hibernate_sequence values ( 1 )
 
 
 2. Create Order- create an order and return an order id
-http://localhost:6071/salesorderservice/order
+http://localhost:6071/salesorderservice/orders
 Input: Order Description, Order Date, customer id, list of item names
 Output: Order Id
 a. validate customer by verifying the table "customer_sos" with cust_id
@@ -25,3 +25,8 @@ for the order details in order_line_item table
 Table-
 1. sales_order(id,order_date,cust_id,order_desc,total_price)
 2. order_line_item(id,item_name,item_quantity,order_id)
+
+
+
+Hibernate: create table order_line_item (id bigint not null, item_name varchar(50) not null, item_quantity double precision, order_id bigint, primary key (id)) engine=MyISAM
+Hibernate: create table sales_order (id bigint not null, cust_id bigint, order_date varchar(20) not null, order_desc varchar(100) not null, total_price double precision, primary key (id)) engine=MyISAM
