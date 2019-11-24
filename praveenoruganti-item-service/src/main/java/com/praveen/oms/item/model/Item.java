@@ -8,12 +8,14 @@ import javax.persistence.Id;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Entity
 @Data
 @SuperBuilder
 @NoArgsConstructor
+@ToString
 public class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)

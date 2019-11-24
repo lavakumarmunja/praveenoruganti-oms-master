@@ -9,10 +9,12 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @ApiModel(description = "This request is to create an item")
 @Data
 @NoArgsConstructor
+@ToString
 public class ItemRequest {
 	@ApiModelProperty(notes = "itemname should have atleast 1 character", name="itemname",value = "Redmi Note 8 Pro", required = true)
 	@NotBlank(message="itemname should have atleast 1 character")
