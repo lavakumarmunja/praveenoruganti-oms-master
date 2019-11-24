@@ -13,8 +13,11 @@ import com.praveen.oms.salesorder.model.Customer;
 import com.praveen.oms.salesorder.repository.CustomerRepository;
 import com.praveen.oms.salesorder.subscribe.CustomerCreatedSource;
 
+import lombok.extern.slf4j.Slf4j;
+
 @SpringBootApplication
 @EnableBinding(CustomerCreatedSource.class)
+@Slf4j
 public class SalesorderServiceApplication {
 
 	@Autowired
@@ -26,7 +29,7 @@ public class SalesorderServiceApplication {
 
 	@StreamListener(target = CustomerCreatedSource.INPUT)
 	public void processCustomerCreated(Customer customer) {
-		System.out.println("Customer Created " + customer.getId());
+		log.info("Customer Created " + customer.getId());
 		customerRepository.saveAndFlush(customer);
 	}
 
