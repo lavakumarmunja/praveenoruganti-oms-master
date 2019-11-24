@@ -29,8 +29,10 @@ public class SalesorderServiceApplication {
 
 	@StreamListener(target = CustomerCreatedSource.INPUT)
 	public void processCustomerCreated(Customer customer) {
-		log.info("Customer Created " + customer.getId());
-		customerRepository.saveAndFlush(customer);
+		log.info("SalesorderServiceApplication processCustomerCreated() Starts");
+		log.info("Customer messages consumed from queue " + customer);
+		customerRepository.saveAndFlush(customer);		
+		log.info("SalesorderServiceApplication processCustomerCreated() Ends");
 	}
 
 	@Bean
