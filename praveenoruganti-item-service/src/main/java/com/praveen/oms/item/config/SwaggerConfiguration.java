@@ -1,4 +1,4 @@
-package com.praveen.oms.salesorder.config;
+package com.praveen.oms.item.config;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 import static springfox.documentation.builders.RequestHandlerSelectors.basePackage;
@@ -22,12 +22,12 @@ public class SwaggerConfiguration {
 	@Bean
 	public Docket configDock() {
 		return new Docket(DocumentationType.SWAGGER_2).useDefaultResponseMessages(false).select()
-				.apis(basePackage("com.praveen.oms.salesorder.controller")).paths(regex("/salesorderservice.*")).build()
+				.apis(basePackage("com.praveen.oms.item.controller")).paths(regex("/itemservice.*")).build()
 				.apiInfo(apiInfo());
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("Sales Order Service Swagger2 Api Documentation")
+		return new ApiInfoBuilder().title("Item Service Swagger2 Api Documentation")
 				.description("WELCOME TO SWAGGER CLIENT")
 				.contact(new Contact("PRAVEEN ORUGANTI", "https://praveenoruganti.blogspot.com/",
 						"praveenoruganti@gmail.com"))
