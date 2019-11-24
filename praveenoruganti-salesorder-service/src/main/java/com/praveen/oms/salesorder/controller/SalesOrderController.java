@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.praveen.oms.salesorder.erros.ErrorResponse;
 import com.praveen.oms.salesorder.erros.ErrorResponse.ErrorDetails;
 import com.praveen.oms.salesorder.model.Customer;
+import com.praveen.oms.salesorder.model.Order;
 import com.praveen.oms.salesorder.request.OrderRequest;
 import com.praveen.oms.salesorder.service.SalesOrderService;
 
@@ -57,9 +58,8 @@ public class SalesOrderController {
 			errorResponse.setErrors(errorDetails);
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		} else {
-			Customer customer = salesOrderService.createOrder(orderRequest);
-
-			return new ResponseEntity<Customer>(customer, HttpStatus.CREATED);
+			Order order = salesOrderService.createOrder(orderRequest);
+			return new ResponseEntity<Order>(order, HttpStatus.CREATED);
 		}
 
 	}

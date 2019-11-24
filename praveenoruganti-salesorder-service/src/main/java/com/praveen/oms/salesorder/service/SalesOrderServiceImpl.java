@@ -9,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.praveen.oms.salesorder.exception.CustomerNotFoundException;
 import com.praveen.oms.salesorder.exception.ItemNotFoundException;
-import com.praveen.oms.salesorder.model.Customer;
 import com.praveen.oms.salesorder.model.Order;
 import com.praveen.oms.salesorder.model.OrderLineItem;
 import com.praveen.oms.salesorder.repository.CustomerRepository;
@@ -18,7 +17,10 @@ import com.praveen.oms.salesorder.repository.OrderRepository;
 import com.praveen.oms.salesorder.request.OrderRequest;
 import com.praveen.oms.salesorder.response.ItemResponse;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class SalesOrderServiceImpl implements SalesOrderService {
 
 	@Autowired
@@ -34,7 +36,9 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 	CustomerRepository customerRepository;
 
 	@Override
-	public Customer createOrder(OrderRequest orderRequest) {
+	public Order createOrder(OrderRequest orderRequest) {
+		log.info("SalesOrderServiceImpl createItem() Starts");
+		log.info("Order Request in createOrder()  is "+orderRequest);
 		if (customerRepository.findById(orderRequest.getCustid()).isPresent()) { // validate customer id
 			List<String> availableItems = new ArrayList<>();
 			// validate the placed order Items by calling the Itemservice
@@ -54,6 +58,9 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 						.totalPrice(orderRequest.getTotalprice()).build());
 				availableItems.forEach(itemName -> orderLineItemRepository
 						.saveAndFlush(OrderLineItem.builder().itemName(itemName).orderId(order.getId()).build()));
+				log.info("Order Response in createOrder()  is "+order);
+				log.info("SalesOrderServiceImpl createCustomer() Ends");
+				return order;
 
 			} else {
 				throw new ItemNotFoundException("Item not found");
@@ -63,7 +70,7 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 			throw new CustomerNotFoundException("Customer not found");
 		}
 
-		return null;
+		
 	}
 
 }
