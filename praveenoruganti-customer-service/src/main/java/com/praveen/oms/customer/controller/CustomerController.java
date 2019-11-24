@@ -7,10 +7,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.integration.support.MessageBuilder;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.praveen.oms.customer.errors.ErrorResponse;
 import com.praveen.oms.customer.errors.ErrorResponse.ErrorDetails;
-import com.praveen.oms.customer.exception.CustomerNotFoundException;
 import com.praveen.oms.customer.model.Customer;
-import com.praveen.oms.customer.publish.CustomerCreatedSource;
 import com.praveen.oms.customer.request.CustomerRequest;
 import com.praveen.oms.customer.service.CustomerService;
 
@@ -34,29 +30,24 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.SwaggerDefinition;
 import io.swagger.annotations.Tag;
+import lombok.extern.slf4j.Slf4j;
 
 @Api(value = "CustomerController", tags = { "Customer Controller" })
 @SwaggerDefinition(tags = { @Tag(name = "Customer Controller", description = "Controller for Customer Service") })
 @RestController
+@Slf4j
 @RequestMapping("/customerservice")
-@EnableBinding(CustomerCreatedSource.class)
 public class CustomerController {
 	@Autowired
 	CustomerService customerService;
-	@Autowired
-	CustomerCreatedSource customerCreatedSource;
+	
 
 	@GetMapping("/customers")
 	@ApiOperation(value = "Gets all the Customers")
 	@ApiResponses(value = { @ApiResponse(code = 404, message = "Customer not found"),
 			@ApiResponse(code = 200, message = "OK") })
 	public ResponseEntity<List<Customer>> getCustomers() {
-		if (customerService.getCustomers().size() > 0) {
 			return new ResponseEntity<List<Customer>>(customerService.getCustomers(), HttpStatus.OK);
-		} else {
-			throw new CustomerNotFoundException("Customer not found");
-		}
-
 	}
 
 	@PostMapping(value = "/customers", consumes = "application/json", produces = "application/json")
@@ -79,13 +70,10 @@ public class CustomerController {
 			errorResponse.setErrorMessage("BAD REQUEST");
 			errorResponse.setTimestamp(new Date());
 			errorResponse.setErrors(errorDetails);
+			log.info("CustomerController createCustomer() request validation error is "+ errorResponse);
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		} else {
-			Customer customer = customerService.createCustomer(customerRequest);
-			if(null!=customerCreatedSource) {
-			   customerCreatedSource.customerCreated().send(MessageBuilder.withPayload(customer).build());
-			}
-			return new ResponseEntity<Customer>(customer, HttpStatus.CREATED);
+			return new ResponseEntity<Customer>(customerService.createCustomer(customerRequest), HttpStatus.CREATED);
 		}
 	}
 

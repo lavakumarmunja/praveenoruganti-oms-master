@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.praveen.oms.item.exception.ItemNotFoundException;
 import com.praveen.oms.item.model.Item;
 import com.praveen.oms.item.repository.ItemRepository;
 import com.praveen.oms.item.request.ItemRequest;
@@ -23,6 +24,10 @@ public class ItemServiceImpl implements ItemService{
 	public List<Item> getItems() {
 		log.info("ItemServiceImpl getItems() Starts");
 		List<Item> itemList= itemRepository.findAll();
+		if (itemList.size()== 0) {
+			log.info("ItemServiceImpl getItems() Exception Item not found");
+			throw new ItemNotFoundException("Item not found");
+		}
 		log.info("Item List size is "+ itemList.size());
 		log.info("ItemServiceImpl getItems() Ends");
 		return itemList;
@@ -33,6 +38,9 @@ public class ItemServiceImpl implements ItemService{
 		log.info("ItemServiceImpl getByItemname() Starts");
 		log.info("Item name in getByItemname() is "+itemname);
 		Item item= itemRepository.findByItemname(itemname);
+		if (item==null) {
+			throw new ItemNotFoundException("Item not found");
+		}
 		log.info("Item Response in getByItemname() is "+ item);
 		log.info("ItemServiceImpl getByItemname() Ends");
 		return item;

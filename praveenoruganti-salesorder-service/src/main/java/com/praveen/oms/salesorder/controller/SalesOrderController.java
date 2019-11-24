@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.praveen.oms.salesorder.erros.ErrorResponse;
 import com.praveen.oms.salesorder.erros.ErrorResponse.ErrorDetails;
-import com.praveen.oms.salesorder.model.Customer;
 import com.praveen.oms.salesorder.model.Order;
 import com.praveen.oms.salesorder.request.OrderRequest;
 import com.praveen.oms.salesorder.service.SalesOrderService;
@@ -27,8 +26,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@Slf4j
 @RequestMapping("/salesorderservice")
 public class SalesOrderController {
 
@@ -56,6 +57,7 @@ public class SalesOrderController {
 			errorResponse.setErrorMessage("BAD REQUEST");
 			errorResponse.setTimestamp(new Date());
 			errorResponse.setErrors(errorDetails);
+			log.info("SalesOrderController createOrder() request validation error is "+ errorResponse);
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		} else {
 			Order order = salesOrderService.createOrder(orderRequest);

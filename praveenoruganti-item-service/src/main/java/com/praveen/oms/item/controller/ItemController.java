@@ -32,11 +32,13 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.SwaggerDefinition;
 import io.swagger.annotations.Tag;
+import lombok.extern.slf4j.Slf4j;
 
 @Api(value = "ItemController", tags = { "Item Controller" })
 @SwaggerDefinition(tags = { @Tag(name = "Item Controller", description = "Controller for Item Service") })
 @RestController
 @RequestMapping("/itemservice")
+@Slf4j
 public class ItemController {
 	@Autowired
 	ItemService itemService;
@@ -45,33 +47,23 @@ public class ItemController {
 	@ApiOperation(value = "Gets all the Items")
 	@ApiResponses(value = { @ApiResponse(code = 404, message = "Item not found"),
 			@ApiResponse(code = 200, message = "OK") })
-	public ResponseEntity<List<Item>> getItems() {
-		if (itemService.getItems().size() > 0) {
-			return new ResponseEntity<List<Item>>(itemService.getItems(), HttpStatus.OK);
-		} else {
-			throw new ItemNotFoundException("Item not found");
-		}
-
+	public ResponseEntity<List<Item>> getItems() {		
+		return new ResponseEntity<List<Item>>(itemService.getItems(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/item/{itemname}")
 	@ApiOperation(value = "Get Item by Item Name")
 	@ApiResponses(value = { @ApiResponse(code = 404, message = "Item not found"),
 			@ApiResponse(code = 200, message = "OK") })
-	public ResponseEntity<Item> getCustomers(@PathVariable String itemname) {
-		if (itemService.getByItemname(itemname)!=null) {
-			return new ResponseEntity<Item>(itemService.getByItemname(itemname), HttpStatus.OK);
-		} else {
-			throw new ItemNotFoundException("Item not found");
-		}
-
+	public ResponseEntity<Item> getByItemname(@PathVariable String itemname) {
+		return new ResponseEntity<Item>(itemService.getByItemname(itemname), HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/customer", consumes = "application/json", produces = "application/json")
 	@ApiOperation(value = "Creates new Item")
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Item Created Successfully"),
 			@ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "BAD REQUEST") })
-	public ResponseEntity<?> createCustomer(
+	public ResponseEntity<?> createItem(
 			@ApiParam("Item information for a new item to be created.") @Valid @RequestBody ItemRequest itemRequest,
 			Errors errors) {
 		if (errors.hasErrors()) {
@@ -87,6 +79,7 @@ public class ItemController {
 			errorResponse.setErrorMessage("BAD REQUEST");
 			errorResponse.setTimestamp(new Date());
 			errorResponse.setErrors(errorDetails);
+			log.info("ItemController createItem() request validation error is "+ errorResponse);
 			return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 		} else {
 			return new ResponseEntity<Item>(itemService.createItem(itemRequest), HttpStatus.CREATED);

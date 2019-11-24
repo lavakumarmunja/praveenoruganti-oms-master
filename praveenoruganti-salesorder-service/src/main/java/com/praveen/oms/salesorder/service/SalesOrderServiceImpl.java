@@ -37,7 +37,7 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 
 	@Override
 	public Order createOrder(OrderRequest orderRequest) {
-		log.info("SalesOrderServiceImpl createItem() Starts");
+		log.info("SalesOrderServiceImpl createOrder() Starts");
 		log.info("Order Request in createOrder()  is "+orderRequest);
 		if (customerRepository.findById(orderRequest.getCustid()).isPresent()) { // validate customer id
 			List<String> availableItems = new ArrayList<>();
@@ -59,14 +59,16 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 				availableItems.forEach(itemName -> orderLineItemRepository
 						.saveAndFlush(OrderLineItem.builder().itemName(itemName).orderId(order.getId()).build()));
 				log.info("Order Response in createOrder()  is "+order);
-				log.info("SalesOrderServiceImpl createCustomer() Ends");
+				log.info("SalesOrderServiceImpl createOrder() Ends");
 				return order;
 
 			} else {
+				log.info("SalesOrderServiceImpl createOrder() Exception is Item not found");
 				throw new ItemNotFoundException("Item not found");
 			}
 
 		} else {
+			log.info("SalesOrderServiceImpl createOrder() Exception is Customer not found");
 			throw new CustomerNotFoundException("Customer not found");
 		}
 
