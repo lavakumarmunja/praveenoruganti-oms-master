@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.praveen.oms.salesorder.erros.ErrorResponse;
-import com.praveen.oms.salesorder.erros.ErrorResponse.ErrorDetails;
+import com.praveen.oms.salesorder.error.ErrorResponse;
+import com.praveen.oms.salesorder.error.ErrorResponse.ErrorDetails;
 import com.praveen.oms.salesorder.model.Order;
 import com.praveen.oms.salesorder.request.OrderRequest;
 import com.praveen.oms.salesorder.service.SalesOrderService;

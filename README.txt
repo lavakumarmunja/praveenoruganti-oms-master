@@ -17,9 +17,9 @@ Table- Customer(id,email,first_name,last_name,creation_date)
 B. Implement item service
 
 1. Get items - return all the items details in the table
-http://localhost:6071/itemservice/item
+http://localhost:6072/itemservice/item
 2. Get item detail if item name is sent as a parameter
-http://localhost:6071/itemservice/item/{itemname}
+http://localhost:6072/itemservice/item/{itemname}
 
 Table- Item(id,item_name,description,price,creationdate)
 

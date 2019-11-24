@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,6 +35,10 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 
 	@Autowired
 	CustomerRepository customerRepository;
+	
+	@Autowired
+	@Value("${SalesOrderService.ItemServiceURL}")
+	private String billingURL;
 
 	@Override
 	public Order createOrder(OrderRequest orderRequest) {
@@ -45,7 +50,7 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 			orderRequest.getItemNames().forEach(
 				item -> {
 					ItemResponse itemResponse = restTemplate
-							.getForObject("http://localhost:6072/itemservice/item/" + item, ItemResponse.class);
+							.getForObject(billingURL + item, ItemResponse.class);
 					System.out.println("itemResponse"+ itemResponse);					
 					if (itemResponse != null && itemResponse.getItemname() !=null) {
 						availableItems.add(itemResponse.getItemname());

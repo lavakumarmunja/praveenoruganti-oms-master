@@ -37,4 +37,5 @@ spring:
        destination: CustomerCreatedExchange
        group: CustomerCreatedMQ
          
-   
+SalesOrderService:
+    ItemServiceURL: http://localhost:6072/itemservice/item/

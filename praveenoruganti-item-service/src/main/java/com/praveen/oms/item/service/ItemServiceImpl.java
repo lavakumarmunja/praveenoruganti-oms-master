@@ -19,7 +19,7 @@ public class ItemServiceImpl implements ItemService{
 
 	@Autowired
 	ItemRepository itemRepository;
-
+	
 	@Override
 	public List<Item> getItems() {
 		log.info("ItemServiceImpl getItems() Starts");

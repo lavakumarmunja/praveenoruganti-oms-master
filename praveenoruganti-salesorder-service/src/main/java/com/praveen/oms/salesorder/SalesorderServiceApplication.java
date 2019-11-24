@@ -8,7 +8,7 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-import com.praveen.oms.salesorder.erros.MyErrorHandler;
+import com.praveen.oms.salesorder.error.MyErrorHandler;
 import com.praveen.oms.salesorder.model.Customer;
 import com.praveen.oms.salesorder.repository.CustomerRepository;
 import com.praveen.oms.salesorder.subscribe.CustomerCreatedSource;

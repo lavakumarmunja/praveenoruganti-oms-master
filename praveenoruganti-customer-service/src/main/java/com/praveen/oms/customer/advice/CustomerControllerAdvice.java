@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.praveen.oms.customer.errors.ErrorResponse;
+import com.praveen.oms.customer.error.ErrorResponse;
 import com.praveen.oms.customer.exception.CustomerNotFoundException;
 
 @RestControllerAdvice

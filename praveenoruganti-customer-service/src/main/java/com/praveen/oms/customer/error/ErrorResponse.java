@@ -1,4 +1,4 @@
-package com.praveen.oms.customer.errors;
+package com.praveen.oms.customer.error;
 
 import java.util.Date;
 import java.util.List;

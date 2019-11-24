@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.praveen.oms.customer.errors.ErrorResponse;
-import com.praveen.oms.customer.errors.ErrorResponse.ErrorDetails;
+import com.praveen.oms.customer.error.ErrorResponse;
+import com.praveen.oms.customer.error.ErrorResponse.ErrorDetails;
 import com.praveen.oms.customer.model.Customer;
 import com.praveen.oms.customer.request.CustomerRequest;
 import com.praveen.oms.customer.service.CustomerService;

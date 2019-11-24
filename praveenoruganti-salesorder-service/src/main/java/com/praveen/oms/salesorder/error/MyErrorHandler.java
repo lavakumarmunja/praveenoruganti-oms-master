@@ -1,4 +1,4 @@
-package com.praveen.oms.salesorder.erros;
+package com.praveen.oms.salesorder.error;
 
 import java.io.IOException;
 
