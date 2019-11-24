@@ -1,15 +1,51 @@
 ------------------------ ORDER MANAGEMENT SYSTEM SpringBoot Application---------------------------------
 
-1. Implement the core services Customer and Item
-2. Implement the composite service sales order
-3. Ensure to have implemented the following components.
-   a. Eureka - Service Registry and Discovery
-   b. Ribbon- Client side load balancing 
-   c. Fault tolerance- Hystrix Circuit Breaker
-   d. Centralized Configuration - Spring Config Server
-   e. Asynchronous processing - Rabbit MQ
-   
-   
+We need to implement the below services for  Order Management System
+
+A. Implement customer service
+
+1. Get customers - return all the customer details in the table
+http://localhost:6070/customerservice/customer
+2. Create a customer by sending the customer details
+http://localhost:6070/customerservice/customer
+a. when a create customer method is invoked. Insert the details in customer table 
+and publish "CustomerCreated" event along with customer details.
+b. sales order service has to subscribe to "CustomerCreated" event 
+
+Table- Customer(id,email,first_name,last_name,creation_date)
+
+B. Implement item service
+
+1. Get items - return all the items details in the table
+http://localhost:6071/itemservice/item
+2. Get item detail if item name is sent as a parameter
+http://localhost:6071/itemservice/item/{itemname}
+
+Table- Item(id,item_name,description,price,creationdate)
+
+C. Implement Sales Order service
+
+1. Sales order customer- event subscription
+a. When a "Customer Created" event is published, sales order service needs to 
+subscribe to it. Fetch the customer details(customer id,email,first_name,last_name) 
+and insert into the local customer table
+
+Table-Customer_SOS(cust_id,cust_first_name,cust_last_name,cust_email)
+
+2. Create Order- create an order and return an order id
+http://localhost:6071/salesorderservice/orders
+Input: Order Description, Order Date, customer id, list of item names
+Output: Order Id
+a. validate customer by verifying the table "customer_sos" with cust_id
+b. validate the items by calling item service with item name
+c. create order by inserting the order details in  order table and items 
+for the order details in order_line_item table
+
+Table-
+1. sales_order(id,order_date,cust_id,order_desc,total_price)
+2. order_line_item(id,item_name,item_quantity,order_id)
+
+  
 How to install RabbitMQ in your local ?
 1. Download supporting ERLANG component from here  and install.
 2. Download Rabbit MQ from here and install
