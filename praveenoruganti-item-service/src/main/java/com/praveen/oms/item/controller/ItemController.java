@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.praveen.oms.item.error.ErrorResponse;
 import com.praveen.oms.item.error.ErrorResponse.ErrorDetails;
-import com.praveen.oms.item.exception.ItemNotFoundException;
 import com.praveen.oms.item.model.Item;
 import com.praveen.oms.item.request.ItemRequest;
 import com.praveen.oms.item.service.ItemService;
@@ -43,7 +42,7 @@ public class ItemController {
 	@Autowired
 	ItemService itemService;
 	
-	@GetMapping("/item")
+	@GetMapping("/items")
 	@ApiOperation(value = "Gets all the Items")
 	@ApiResponses(value = { @ApiResponse(code = 404, message = "Item not found"),
 			@ApiResponse(code = 200, message = "OK") })
@@ -51,7 +50,7 @@ public class ItemController {
 		return new ResponseEntity<List<Item>>(itemService.getItems(), HttpStatus.OK);
 	}
 	
-	@GetMapping("/item/{itemname}")
+	@GetMapping("/items/{itemname}")
 	@ApiOperation(value = "Get Item by Item Name")
 	@ApiResponses(value = { @ApiResponse(code = 404, message = "Item not found"),
 			@ApiResponse(code = 200, message = "OK") })
@@ -59,7 +58,7 @@ public class ItemController {
 		return new ResponseEntity<Item>(itemService.getByItemname(itemname), HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/customer", consumes = "application/json", produces = "application/json")
+	@PostMapping(value = "/items", consumes = "application/json", produces = "application/json")
 	@ApiOperation(value = "Creates new Item")
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Item Created Successfully"),
 			@ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "BAD REQUEST") })

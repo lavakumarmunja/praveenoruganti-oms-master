@@ -38,4 +38,4 @@ spring:
        group: CustomerCreatedMQ
          
 SalesOrderService:
-    ItemServiceURL: http://localhost:6072/itemservice/item/
+    ItemServiceURL: http://localhost:6072/itemservice/items/
