@@ -5,9 +5,9 @@ We need to implement the below services for  Order Management System
 A. Implement customer service
 
 1. Get customers - return all the customer details in the table
-http://localhost:6070/customerservice/customer
+http://localhost:6070/customerservice/customers
 2. Create a customer by sending the customer details
-http://localhost:6070/customerservice/customer
+http://localhost:6070/customerservice/customers
 a. when a create customer method is invoked. Insert the details in customer table 
 and publish "CustomerCreated" event along with customer details.
 b. sales order service has to subscribe to "CustomerCreated" event 
@@ -17,9 +17,9 @@ Table- Customer(id,email,first_name,last_name,creation_date)
 B. Implement item service
 
 1. Get items - return all the items details in the table
-http://localhost:6072/itemservice/item
+http://localhost:6072/itemservice/items
 2. Get item detail if item name is sent as a parameter
-http://localhost:6072/itemservice/item/{itemname}
+http://localhost:6072/itemservice/items/{itemname}
 
 Table- Item(id,item_name,description,price,creationdate)
 
@@ -38,6 +38,7 @@ Input: Order Description, Order Date, customer id, list of item names
 Output: Order Id
 a. validate customer by verifying the table "customer_sos" with cust_id
 b. validate the items by calling item service with item name
+http://localhost:6072/itemservice/items/{itemname}
 c. create order by inserting the order details in  order table and items 
 for the order details in order_line_item table
 

@@ -19,6 +19,7 @@ Input: Order Description, Order Date, customer id, list of item names
 Output: Order Id
 a. validate customer by verifying the table "customer_sos" with cust_id
 b. validate the items by calling item service with item name
+http://localhost:6072/itemservice/items/{itemname}
 c. create order by inserting the order details in  order table and items 
 for the order details in order_line_item table
 
