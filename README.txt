@@ -98,6 +98,3 @@ select * from omssalesorderdb.sales_order;
 select * from omssalesorderdb.order_line_item;
 
 
-if you like my group you can provide your funds and for more details you can check my repo.
-
-https://github.com/praveenoruganti/praveenoruganti-repo-funding
