@@ -101,7 +101,7 @@ select * from omssalesorderdb.order_line_item;
 
 Ensure to have implemented the following components.
 a. Eureka - Service Registry and Discovery
-b. Ribbon- Client side load balancing 
+b. use spring-cloud-loadbalancer
 c. Fault tolerance- Hystrix Circuit Breaker
 d. Centralized Configuration - Spring Config Server
 e. Asynchronous processing - Rabbit MQ
