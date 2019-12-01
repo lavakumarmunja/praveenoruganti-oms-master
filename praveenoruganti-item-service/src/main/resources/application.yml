@@ -1,3 +1,12 @@
+eureka:
+ client:
+  register-with-eureka: true
+  fetch-registry: true
+  serviceUrl:
+    defaultZone: http://localhost:8761/eureka
+  instance:
+   hostname: localhost
+  
 server:
   port: 6072
 
@@ -21,5 +30,3 @@ spring:
       idleTimeout : 600000
       maxLifetime : 1800000
       maximumPoolSize : 5
-         
-   

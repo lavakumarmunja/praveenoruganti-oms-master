@@ -1,3 +1,12 @@
+eureka:
+ client:
+  register-with-eureka: true
+  fetch-registry: true
+  serviceUrl:
+    defaultZone: http://localhost:8761/eureka
+  instance:
+   hostname: localhost
+  
 server:
   port: 6071
 
@@ -38,4 +47,4 @@ spring:
        group: CustomerCreatedMQ
          
 SalesOrderService:
-    ItemServiceURL: http://localhost:6072/itemservice/items/
+    ItemServiceURL: http://ItemService/itemservice/items/
