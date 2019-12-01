@@ -3,6 +3,7 @@ package com.praveen.oms.salesorder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -17,6 +18,7 @@ import com.praveen.oms.salesorder.subscribe.CustomerCreatedSource;
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
+@EnableDiscoveryClient
 @EnableBinding(CustomerCreatedSource.class)
 @Slf4j
 public class SalesorderServiceApplication {

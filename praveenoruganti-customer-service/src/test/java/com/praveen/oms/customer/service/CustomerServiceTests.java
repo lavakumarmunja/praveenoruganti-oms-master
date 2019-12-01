@@ -6,8 +6,8 @@ import static org.mockito.Mockito.doReturn;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -25,7 +25,7 @@ public class CustomerServiceTests {
 	@Mock
 	CustomerRepository customerRepository; // the service dependencies
 
-	@BeforeAll
+	@Before
 	public void init() {
 		MockitoAnnotations.initMocks(this);
 	}
